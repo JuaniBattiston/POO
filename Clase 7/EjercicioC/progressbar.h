@@ -30,9 +30,9 @@ public:
         p.setPen(QPen(QColor(Qt::blue), 2));
         p.drawRoundedRect(rect, 20, 20);
 
-        qreal progressWidth = (rect.width() - 40) * percentage;
+        qreal progressWidth = (rect.width() - 20) * percentage;
         qreal progressHeight = rect.height() * 0.6;
-        qreal progressX = 10;
+        qreal progressX = 15;
         qreal progressY = rect.center().y() - progressHeight / 2;
 
         QRectF progressBarRect = QRectF(progressX, progressY, progressWidth, progressHeight);
@@ -41,8 +41,8 @@ public:
         p.drawRoundedRect(progressBarRect, 10, 10);
 
         QString text = QString("%1%").arg(static_cast<int>(percentage * 100));
-        p.setPen(Qt::blue); // Set text color to blue
-        QRectF textRect = QRectF(0, height() - height() * 0.1, width() - width() * 0.05, -height() * 0.2); // Position text at the bottom
+        p.setPen(Qt::blue);
+        QRectF textRect = QRectF(0, height() - height() * 0.1, width() - width() * 0.1, -height() * 0.2); // Adjust the margin on the right
         p.drawText(textRect, Qt::AlignRight | Qt::AlignVCenter, text);
     }
 
