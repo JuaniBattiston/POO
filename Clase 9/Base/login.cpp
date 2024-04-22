@@ -16,16 +16,13 @@ login::login(QWidget *parent)
     ui->setupUi(this);
     get_all_ulrs_from_file();
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
-
     button_prev = new QPushButton("Anterior", this);
     button_next = new QPushButton("Siguiente", this);
-    QHBoxLayout *buttonLayout = new QHBoxLayout;
+    QGridLayout *layout = new QGridLayout;
 
-    buttonLayout->addWidget(button_prev);
-    buttonLayout->addWidget(button_next);
-    layout->addStretch(1);
-    layout->addLayout(buttonLayout);
+    layout->addWidget(button_prev, 0, 0, Qt::AlignBottom);
+    layout->addWidget(button_next, 0, 1, Qt::AlignBottom);
+
 
     setLayout(layout);
 
