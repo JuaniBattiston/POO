@@ -2,6 +2,7 @@
 #include "ui_ventana.h"
 #include <QGridLayout>
 #include <QDebug>
+#include <QFile>
 
 Ventana::Ventana(QWidget *parent)
     : QDialog(parent)
@@ -59,5 +60,21 @@ void Ventana::paintEvent(QPaintEvent *)
 void Ventana::slot_add_user()
 {
     qDebug() << "Usuario Subido";
+
+    QString dni = ledni->text();
+    QString name = leName->text();
+    QString familyName = leFamilyName->text();
+
+    QFile file("userinfo.txt");
+    if (file.open(QIODevice::WriteOnly | QIODevice::Append)) {
+        QTextStream out(&file);
+        out << "DNI: " << dni << "\n";
+        out << "Nombre: " << name << "\n";
+        out << "Apellido: " << familyName << "\n\n";
+        file.close();
+    } else {
+        qDebug() << "Error opening file for writing";
+    }
+
     QCoreApplication::quit();
 }
