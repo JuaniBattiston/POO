@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Ventana</class>
+ <widget class="QWidget" name="Ventana">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Ventana</string>
+  </property>
+  <widget class="Boton" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>30</y>
+     <width>531</width>
+     <height>41</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="Boton" name="widget_2" native="true">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>100</y>
+     <width>531</width>
+     <height>41</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="Boton" name="widget_3" native="true">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>170</y>
+     <width>531</width>
+     <height>41</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="Boton" name="widget_4" native="true">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>250</y>
+     <width>531</width>
+     <height>41</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="Boton" name="widget_5" native="true">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>330</y>
+     <width>531</width>
+     <height>61</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Boton</class>
+   <extends>QWidget</extends>
+   <header>boton.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
