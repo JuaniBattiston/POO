@@ -4,8 +4,20 @@
 Login::Login(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Login)
-    , manager (new QNetworkAccessManager(this))
+    , managerjson (new QNetworkAccessManager(this))
+    , managerimgs (new QNetworkAccessManager(this))
+    , login_atts(0)
 {
+
+    db = adminDB.getDB();
+    if (adminDB.conectar( "C:\\Users\\juani\\OneDrive\\Escritorio\\POO\\Clase 12\\db.sqlite" ) )
+        qDebug() << "Conexion exitosa";
+
+    const int BLOCK_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+    bool is_blocked = false;
+    timer.setSingleShot(true);
+    formulario = new Formulario();
+
     QLabel *lUser = new QLabel("Usuario:");
     QLabel *lPassword = new QLabel("Clave:");
     lWeather = new QLabel("Weather Info");
@@ -16,7 +28,7 @@ Login::Login(QWidget *parent)
     lePassword = new QLineEdit;
     lePassword->setEchoMode(QLineEdit::Password);
 
-    QPushButton *pbLogin = new QPushButton("Ingresar");
+    pbLogin = new QPushButton("Ingresar");
 
     leImageUrl = new QLineEdit;
     pbSetBackground = new QPushButton("Set Background");
@@ -37,14 +49,14 @@ Login::Login(QWidget *parent)
     connect(pbLogin, SIGNAL(pressed()), this, SLOT(slot_validate_user()));
     connect(lePassword, SIGNAL(returnPressed()), this, SLOT(slot_validate_user()));
 
-    connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(slot_handle_temp_resp(QNetworkReply*)));
+    connect(managerjson, SIGNAL(finished(QNetworkReply*)), this, SLOT(slot_handle_temp_resp(QNetworkReply*)));
     QString url_string = "https://api.weatherapi.com/v1/current.json?key=e59137c754614dfebf9224202240304&q=-31.4135%20-64.18105";
-    manager->get(QNetworkRequest(QUrl(url_string)));
+    managerjson->get(QNetworkRequest(QUrl(url_string)));
     connect(cbHideTemp, SIGNAL(stateChanged(int)), this, SLOT(slot_toggleTempLabelVisibility(int)));
 
     QString url_string_2 = "https://img.freepik.com/foto-gratis/papel-pintado-gatito-lindo-fantasia_1409-6188.jpg";
-    manager->get(QNetworkRequest(QUrl(url_string_2)));
-    connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(slot_downloadFinished(QNetworkReply*)));
+    managerimgs->get(QNetworkRequest(QUrl(url_string_2)));
+    connect(managerimgs, SIGNAL(finished(QNetworkReply*)), this, SLOT(slot_downloadFinished(QNetworkReply*)));
 
     connect(pbSetBackground, SIGNAL(pressed()), this, SLOT(slot_set_bg_img()));
 }
@@ -56,12 +68,52 @@ Login::~Login()
 
 void Login::slot_validate_user()
 {
-    if (leUser->text() == "admin" && lePassword->text() == "1234") {
-        //this->hide();
-        //qDebug()
-    } else {
-        this->close();
+    bool valid_user = false;
+    QStringList result = adminDB.validarUsuario(QString("usuarios"),leUser->text(), lePassword->text());
+    if (result.size() > 0) {
+        valid_user = true;
     }
+    if (valid_user) {
+        qDebug() << "Usuario válido";
+        formulario->show();
+        this->hide();
+        login_atts = 0;
+
+    } else {
+        qDebug() << "Usuario inválido";
+        login_atts++;
+
+        if (login_atts >= 3) {
+            qDebug() << "3 intentos fallidos";
+
+
+            blockUser();
+
+            login_atts = 0;
+        }
+    }
+}
+
+void Login::blockUser()
+{
+
+    leUser->setEnabled(false);
+    lePassword->setEnabled(false);
+    pbLogin->setEnabled(false);
+
+    timer.start(BLOCK_DURATION);
+
+    connect(&timer, &QTimer::timeout, this, &Login::unblockUser);
+}
+
+void Login::unblockUser()
+{
+
+    leUser->setEnabled(true);
+    lePassword->setEnabled(true);
+    pbLogin->setEnabled(true);
+
+    disconnect(&timer, &QTimer::timeout, this, &Login::unblockUser);
 }
 
 void Login::slot_toggleTempLabelVisibility(int state)
@@ -118,10 +170,8 @@ void Login::paintEvent(QPaintEvent *)
 
 void Login::slot_downloadFinished(QNetworkReply *reply)
 {
-    qDebug() << "Here";
     image = QImage::fromData(reply->readAll());
     if (!image.isNull()) {
-        qDebug() << "Repaint";
         this->repaint();
     }
 
@@ -130,5 +180,5 @@ void Login::slot_downloadFinished(QNetworkReply *reply)
 void Login::slot_set_bg_img()
 {
     QString url_string = leImageUrl->text();
-    manager->get(QNetworkRequest(QUrl(url_string)));
+    managerimgs->get(QNetworkRequest(QUrl(url_string)));
 }

@@ -13,6 +13,9 @@
 #include <QNetworkReply>
 #include <QPaintEvent>
 #include <QJsonDocument>
+#include <QSqlDatabase>
+#include "admindb.h"
+#include "formulario.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -28,17 +31,27 @@ private:
     Ui::Login *ui;
     QLineEdit *leUser;
     QLineEdit *lePassword;
+    QPushButton *pbLogin;
     QLabel *lWeather;
     QCheckBox *cbHideTemp;
     QLabel *backgroundLabel;
     QLineEdit *leImageUrl;
     QPushButton *pbSetBackground;
-    QNetworkAccessManager *manager;
+    QNetworkAccessManager *managerimgs;
+    QNetworkAccessManager *managerjson;
     QImage image;
+    QSqlDatabase db;
+    AdminDB adminDB;
+    int login_atts;
+    QTimer timer;
+    const int BLOCK_DURATION = 5 * 60 * 1000;
+    Formulario *formulario;
 
 public:
     Login(QWidget *parent = nullptr);
     ~Login();
+    void blockUser();
+    void unblockUser();
 
 protected:
     void paintEvent(QPaintEvent *);
