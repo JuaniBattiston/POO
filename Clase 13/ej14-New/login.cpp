@@ -75,6 +75,7 @@ void Login::slot_validate_user()
     }
     if (valid_user) {
         qDebug() << "Usuario válido";
+        emit signal_usuarioValidado(leUser->text());
         formulario->show();
         this->hide();
         login_atts = 0;

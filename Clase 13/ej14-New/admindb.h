@@ -16,6 +16,7 @@ public:
     bool conectar( QString archivoSqlite );
     QSqlDatabase getDB();
     QStringList validarUsuario( QString tabla, QString usuario, QString clave );
+    QVector<QStringList> select(QString comando);
 
 private:
     QSqlDatabase db;

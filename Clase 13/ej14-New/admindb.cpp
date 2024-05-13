@@ -44,3 +44,23 @@ QStringList AdminDB::validarUsuario( QString tabla, QString usuario, QString cla
 
     return datosPersonales;
 }
+
+
+QVector<QStringList> AdminDB::select(QString comando) {
+    QVector<QStringList> resultados;
+
+    QSqlQuery query(comando);
+    if (query.exec()) {
+        while (query.next()) {
+            QStringList registro;
+            QSqlRecord record = query.record();
+            int fieldCount = record.count();
+            for (int i = 0; i < fieldCount; ++i) {
+                registro.append(query.value(i).toString());
+            }
+            resultados.append(registro);
+        }
+    }
+
+    return resultados;
+}

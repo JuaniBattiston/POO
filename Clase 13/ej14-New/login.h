@@ -56,6 +56,9 @@ public:
 protected:
     void paintEvent(QPaintEvent *);
 
+signals:
+    void signal_usuarioValidado( QString usuario );
+
 private slots:
     void slot_validate_user();
     void slot_downloadFinished(QNetworkReply*);
