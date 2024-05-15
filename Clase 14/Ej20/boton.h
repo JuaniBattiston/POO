@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPainter>
 
+
 namespace Ui {
 class Boton;
 }

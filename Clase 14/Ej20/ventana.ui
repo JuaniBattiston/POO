@@ -7,62 +7,55 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>612</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Ventana</string>
   </property>
-  <widget class="Boton" name="widget" native="true">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>30</y>
-     <width>531</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="Boton" name="widget_2" native="true">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>100</y>
-     <width>531</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="Boton" name="widget_3" native="true">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>170</y>
-     <width>531</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="Boton" name="widget_4" native="true">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>250</y>
-     <width>531</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="Boton" name="widget_5" native="true">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>330</y>
-     <width>531</width>
-     <height>61</height>
-    </rect>
-   </property>
-  </widget>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <widget class="Boton" name="widget" native="true"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="Boton" name="widget_3" native="true"/>
+   </item>
+   <item row="0" column="0">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="5" column="0">
+    <widget class="Boton" name="widget_5" native="true"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="Boton" name="widget_2" native="true"/>
+   </item>
+   <item row="4" column="0">
+    <widget class="Boton" name="widget_4" native="true"/>
+   </item>
+   <item row="6" column="0">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
  </widget>
  <customwidgets>
   <customwidget>

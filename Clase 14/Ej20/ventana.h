@@ -2,6 +2,9 @@
 #define VENTANA_H
 
 #include <QWidget>
+#include <QImage>
+#include <QNetworkReply>
+#include <QNetworkAccessManager>
 #include "boton.h"
 
 QT_BEGIN_NAMESPACE
@@ -18,7 +21,13 @@ public:
     Ventana(QWidget *parent = nullptr);
     ~Ventana();
 
+private slots:
+    void paintEvent(QPaintEvent *event);
+    void slot_download_finished(QNetworkReply *reply);
+
 private:
     Ui::Ventana *ui;
+    QImage image;
+    QNetworkAccessManager *manager;
 };
 #endif // VENTANA_H
