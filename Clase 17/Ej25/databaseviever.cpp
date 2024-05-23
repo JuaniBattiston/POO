@@ -9,7 +9,7 @@ DatabaseViever::DatabaseViever(QWidget *parent)
     ui->setupUi(this);
     setupTreeWidget();
     loadUsers();
-    connect(ui->treeWidget, &QTreeWidget::itemChanged, this, &DatabaseViever::onItemChanged);
+    connect(ui->treeWidget, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(onItemChanged(QTreeWidgetItem*,int)));
 }
 
 
@@ -44,7 +44,6 @@ void DatabaseViever::loadUsers() {
 }
 
 void DatabaseViever::onItemChanged(QTreeWidgetItem *item, int column) {
-    AdminDB* db = AdminDB::get_instance();
 
     int id = item->text(0).toInt();
     QString columnName;
