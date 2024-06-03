@@ -13,7 +13,8 @@ Login::Login(QWidget *parent)
     , manager(new QNetworkAccessManager(this))
 {
     ui->setupUi(this);
-    connect(ui->pbLogin, SIGNAL(pressed()), this, SLOT(slot_make_request()));
+    connect(ui->pbLogin, SIGNAL(clicked()), this, SLOT(slot_make_request()));
+
 }
 
 Login::~Login()
