@@ -2,6 +2,9 @@
 #define PRINCIPAL_H
 
 #include <QWidget>
+#include <QPainter>
+#include "admindb.h"
+#include "linea.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -16,6 +19,9 @@ class Principal : public QWidget
 public:
     Principal(QWidget *parent = nullptr);
     ~Principal();
+
+protected:
+    void paintEvent(QPaintEvent *);
 
 private:
     Ui::Principal *ui;
